@@ -1,3 +1,6 @@
+# Docker build
+docker/rootfs
+
 # Prerequisites
 *.d
 

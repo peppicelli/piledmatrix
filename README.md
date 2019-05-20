@@ -16,5 +16,8 @@ will be automatically used.
 
 ## Dependencies
 
-This project uses [wiringPi](http://wiringpi.com/) and [spdlog](https://github.com/gabime/spdlog).
-Both these dependencies are built automatically with the help of `ExternalProject_Add` in CMake.
+This project uses:
+- [wiringPi](http://wiringpi.com/)
+- [spdlog](https://github.com/gabime/spdlog).
+- [google tests and mock](https://github.com/google/googletest)
+All these dependencies are built automatically with the help of `ExternalProject_Add` in CMake.

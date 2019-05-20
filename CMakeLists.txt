@@ -3,6 +3,10 @@ project (piledmatrix)
 
 set (CMAKE_CXX_STANDARD 11)
 
+# Require dot, treat the other components as optional
+find_package(Doxygen
+             REQUIRED dot)
+
 include("cmake/spdlog.cmake")
 include("cmake/wiringPi.cmake")
 
@@ -46,6 +50,12 @@ set_target_properties(${PROJECT_NAME}
 )
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION "bin")
+
+# Documentation
+
+doxygen_add_docs(${PROJECT_NAME}_docs 
+  src/
+  COMMENT "Generate documentation")
 
 # Test target
 

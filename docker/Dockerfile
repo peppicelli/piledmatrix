@@ -18,6 +18,8 @@ RUN apt-get update && \
     cmake \
     make \
     curl \
+    doxygen \
+    graphviz \
     ca-certificates && \
   rm -rf /var/lib/apt/lists/*
 RUN update-ca-certificates

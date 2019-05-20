@@ -14,7 +14,9 @@ include("cmake/wiringPi.cmake")
 
 set(app_SRCS
   src/Font8x5.cpp
+  src/GraphicsFactory.cpp
   src/MonoColor8RowsGraphics.cpp
+  src/MonoColor8RowsGraphicsFactory.cpp
   src/Sure3208LedMatrix.cpp
 )
 
@@ -64,6 +66,7 @@ include(GoogleTest)
 
 set(tests_SRCS
   tests/Font8x5Tests.cpp
+  tests/MonoColor8RowsGraphicsFactoryTests.cpp
   tests/MonoColor8RowsGraphicsTests.cpp
 )
 

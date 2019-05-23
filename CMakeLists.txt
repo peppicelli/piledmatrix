@@ -7,6 +7,7 @@ set (CMAKE_CXX_STANDARD 11)
 find_package(Doxygen
              REQUIRED dot)
 
+include("cmake/jsoncpp.cmake")
 include("cmake/spdlog.cmake")
 include("cmake/wiringPi.cmake")
 
@@ -15,9 +16,11 @@ include("cmake/wiringPi.cmake")
 set(app_SRCS
   src/Font8x5.cpp
   src/GraphicsFactory.cpp
+  src/GraphicsToolBox.cpp
   src/MonoColor8RowsGraphics.cpp
   src/MonoColor8RowsGraphicsFactory.cpp
   src/Sure3208LedMatrix.cpp
+  src/TimeGraphicsProvider.cpp
 )
 
 add_executable(${PROJECT_NAME} 
@@ -29,7 +32,8 @@ target_compile_options(${PROJECT_NAME}
   PRIVATE 
     -Wall 
     -Wextra 
-    -pedantic 
+    -pedantic
+    -Wno-unused-function
     -Werror
 )
 
@@ -66,6 +70,7 @@ include(GoogleTest)
 
 set(tests_SRCS
   tests/Font8x5Tests.cpp
+  tests/GraphicsToolBoxTests.cpp
   tests/MonoColor8RowsGraphicsFactoryTests.cpp
   tests/MonoColor8RowsGraphicsTests.cpp
 )

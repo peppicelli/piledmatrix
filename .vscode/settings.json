@@ -6,4 +6,9 @@
         "the License at http://www.apache.org/licenses/LICENSE-2.0"
     ],
     "clang-format.fallbackStyle": "Google",
+    "files.associations": {
+        "string": "cpp",
+        "system_error": "cpp"
+    },
+    "cpplint.filters": ["-runtime/references"]
 }

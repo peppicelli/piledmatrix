@@ -16,6 +16,10 @@
 
 #include "spdlog/spdlog.h"
 
+/**
+ * Main entry point.
+ * @return int the exit code of the program.
+ */
 int main() {
   spdlog::info("Hello, {}!", "World");
   return 0;

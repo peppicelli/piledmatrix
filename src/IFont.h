@@ -16,6 +16,9 @@
 
 namespace ledmatrix {
 
+/**
+ * Alignement enum (for horizontal alignment)
+ */
 enum Alignment {
     AlignLeft = 0,
     AlignRight,

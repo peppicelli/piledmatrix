@@ -17,6 +17,7 @@ will be automatically used.
 ## Dependencies
 
 This project uses:
+- [jsoncpp](https://github.com/open-source-parsers/jsoncpp.git)
 - [wiringPi](http://wiringpi.com/)
 - [spdlog](https://github.com/gabime/spdlog).
 - [google tests and mock](https://github.com/google/googletest)

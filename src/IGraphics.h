@@ -60,6 +60,9 @@ class IGraphics {
    */
   virtual void Clear() = 0;
 
+  /**
+   * Clear out every pixel in the matrix without changing the width.
+   */
   virtual void Reset() = 0;
 
   /**

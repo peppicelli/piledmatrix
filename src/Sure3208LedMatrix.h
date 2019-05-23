@@ -66,6 +66,10 @@ class Sure3208LedMatrix {
    */
   void SetBrightness(unsigned char level);
 
+  /**
+   * Toggle the pixels blinking
+   * @param on if true, the blink command will be sent to the hardware.
+   */
   void Blink(bool on);
 
   /**

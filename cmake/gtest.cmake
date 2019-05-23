@@ -21,6 +21,7 @@ if (NOT TARGET googletest)
   add_library(gtest INTERFACE)
   target_link_libraries(gtest INTERFACE
     "${CMAKE_BINARY_DIR}/googletest/${CMAKE_BUILD_TYPE}/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}gtest${CMAKE_STATIC_LIBRARY_SUFFIX}"
+    "${CMAKE_BINARY_DIR}/googletest/${CMAKE_BUILD_TYPE}/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}gmock${CMAKE_STATIC_LIBRARY_SUFFIX}"
     ${CMAKE_THREAD_LIBS_INIT})
   target_include_directories(gtest INTERFACE "${CMAKE_BINARY_DIR}/googletest/${CMAKE_BUILD_TYPE}/install/include/")
 

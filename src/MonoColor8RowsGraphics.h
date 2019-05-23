@@ -19,6 +19,9 @@
 
 #include "src/IGraphics.h"
 
+/**
+ * The horizontal size of the sure electronic HT1632 board.
+ */
 #define MONO_COLOR_GRAPHICS_NUMBER_OF_ROWS 8
 
 namespace ledmatrix {

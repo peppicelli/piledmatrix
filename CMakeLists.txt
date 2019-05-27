@@ -93,6 +93,19 @@ target_include_directories(${PROJECT_NAME}_tests
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  target_compile_options(${PROJECT_NAME}_tests
+    PRIVATE
+    "--coverage" 
+    "-fprofile-arcs" 
+    "-ftest-coverage"
+    )
+    target_link_libraries(${PROJECT_NAME}_tests
+    PRIVATE
+      "--coverage"
+  )
+endif()
+
 gtest_add_tests(TARGET
                 ${PROJECT_NAME}_tests
                 WORKING_DIRECTORY

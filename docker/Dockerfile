@@ -17,6 +17,7 @@ RUN apt-get update && \
     rsync \
     cmake \
     make \
+    lcov \
     curl \
     doxygen \
     graphviz \

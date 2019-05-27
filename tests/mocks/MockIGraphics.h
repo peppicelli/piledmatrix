@@ -11,6 +11,7 @@
  * the License at http://www.apache.org/licenses/LICENSE-2.0
  * 
  */
+#pragma once
 
 #include <gmock/gmock.h>
 #include <src/IGraphics.h>

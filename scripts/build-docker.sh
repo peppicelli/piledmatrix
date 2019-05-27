@@ -55,4 +55,4 @@ if [ ! -d $DOCKER_DIR/rootfs/lib ]; then
 fi
 
 # Build the image
-docker build --build-arg UID=$(id -u) --build-arg GID=$(id -g) ../docker -t dpeppicelli/raspbian-rt-cross-compilation:0.2
+docker build --build-arg UID=$(id -u) --build-arg GID=$(id -g) ../docker -t dpeppicelli/raspbian-rt-cross-compilation:0.3

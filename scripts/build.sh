@@ -23,4 +23,4 @@ echo "Building in $(pwd) as $(whoami)"
 
 mkdir -p $SCRIPT_DIR/../build
 
-docker run -u$(id -u) --rm -v$SCRIPT_DIR/..:/data dpeppicelli/raspbian-rt-cross-compilation:0.2 /bin/bash -c "cd /data/build && cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=/opt/raspberry/pi.cmake ../ && make package && make piledmatrix_docs"
+docker run -u$(id -u) --rm -v$SCRIPT_DIR/..:/data dpeppicelli/raspbian-rt-cross-compilation:0.3 /bin/bash -c "cd /data/build && cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=/opt/raspberry/pi.cmake ../ && make package && make piledmatrix_docs"

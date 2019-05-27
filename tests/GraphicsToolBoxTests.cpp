@@ -26,7 +26,7 @@ TEST(GraphicsToolBox, WriteOnScreenFixed) {
   const uint16_t characterHeight = 8;
   const uint16_t aCharacterWidth = 2;
   const uint16_t bCharacterWidth = 3;
-  const uint16_t letterSpacing = 2; 
+  const uint16_t letterSpacing = 2;
 
   ON_CALL(graphics, GetHeight())
       .WillByDefault(testing::Return(characterHeight));
@@ -76,4 +76,78 @@ TEST(GraphicsToolBox, WriteOnScreenFixed) {
       SetPixel(aCharacterWidth + letterSpacing + bCharacterWidth, 0, false));
 
   ledmatrix::graphics_toolbox::WriteOnScreen(graphics, font, "ab");
+}
+
+TEST(GraphicsToolBox, WriteOnScreenWithAlignment) {
+  testing::NiceMock<ledmatrix::MockIFont> font;
+  testing::NiceMock<ledmatrix::MockIGraphics> graphics;
+
+  const uint16_t characterHeight = 8;
+  const uint16_t aCharacterWidth = 1;
+  const uint16_t letterSpacing = 2;
+  const uint16_t graphicsWidth = 16;
+
+  ON_CALL(graphics, GetHeight())
+      .WillByDefault(testing::Return(characterHeight));
+  ON_CALL(graphics, GetWidth()).WillByDefault(testing::Return(graphicsWidth));
+  ON_CALL(font, GetSingleCharacterHeight())
+      .WillByDefault(testing::Return(characterHeight));
+  ON_CALL(font, GetSingleCharacterWidth('a'))
+      .WillByDefault(testing::Return(aCharacterWidth));
+  ON_CALL(font, GetLetterSpacing())
+      .WillByDefault(testing::Return(letterSpacing));
+
+  // Mock character a is all "true" pixels
+  ON_CALL(font, GetCharacterPixel('a', testing::_, testing::_))
+      .WillByDefault(testing::Return(true));
+
+  // Left expectations
+
+  // Verify that the pixels of character a are correctly written on screen
+  for (uint16_t currentX = 0; currentX < aCharacterWidth; currentX++) {
+    for (uint16_t currentY = characterHeight; currentY > 0; currentY--) {
+      EXPECT_CALL(graphics, SetPixel(currentX, currentY - 1, true));
+    }
+  }
+
+  // Verify that a single pixel is added at the end in order to a blank
+  // column
+  EXPECT_CALL(graphics, SetPixel(aCharacterWidth, 0, false));
+
+  // Center expectations
+
+  uint16_t center = (graphicsWidth - aCharacterWidth) / 2;
+  // Verify that the pixels of character a are correctly written on screen
+  for (uint16_t currentX = center; currentX < center + aCharacterWidth;
+       currentX++) {
+    for (uint16_t currentY = characterHeight; currentY > 0; currentY--) {
+      EXPECT_CALL(graphics, SetPixel(currentX, currentY - 1, true));
+    }
+  }
+
+  // Verify that a single pixel is added at the end in order to a blank
+  // column
+  EXPECT_CALL(graphics, SetPixel(aCharacterWidth + center, 0, false));
+
+  // Right expectations
+
+  uint16_t right = graphicsWidth - aCharacterWidth;
+  // Verify that the pixels of character a are correctly written on screen
+  for (uint16_t currentX = right; currentX < right + aCharacterWidth;
+       currentX++) {
+    for (uint16_t currentY = characterHeight; currentY > 0; currentY--) {
+      EXPECT_CALL(graphics, SetPixel(currentX, currentY - 1, true));
+    }
+  }
+
+  // Verify that a single pixel is added at the end in order to a blank
+  // column
+  EXPECT_CALL(graphics, SetPixel(graphicsWidth, 0, false));
+
+  ledmatrix::graphics_toolbox::WriteOnScreen(graphics, font, "a",
+                                             ledmatrix::AlignLeft);
+  ledmatrix::graphics_toolbox::WriteOnScreen(graphics, font, "a",
+                                             ledmatrix::AlignCenter);
+  ledmatrix::graphics_toolbox::WriteOnScreen(graphics, font, "a",
+                                             ledmatrix::AlignRight);
 }

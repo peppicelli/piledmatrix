@@ -25,5 +25,5 @@ ssh pi@$1 << EOF
   cd /home/pi
   tar xvf piledmatrix*.tar.gz
   cd piled*/bin
-  ./piledmatrix
+  sudo ./piledmatrix
 EOF

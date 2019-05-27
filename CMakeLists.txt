@@ -11,6 +11,8 @@ include("cmake/jsoncpp.cmake")
 include("cmake/spdlog.cmake")
 include("cmake/wiringPi.cmake")
 
+find_package (Threads)
+
 # Main target
 
 set(app_SRCS
@@ -19,6 +21,7 @@ set(app_SRCS
   src/GraphicsToolBox.cpp
   src/MonoColor8RowsGraphics.cpp
   src/MonoColor8RowsGraphicsFactory.cpp
+  src/Runtime.cpp
   src/Sure3208LedMatrix.cpp
   src/TimeGraphicsProvider.cpp
 )
@@ -38,7 +41,8 @@ target_compile_options(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME} 
-  PRIVATE 
+  PRIVATE
+    ${CMAKE_THREAD_LIBS_INIT}
     wiringpi
     spdlog
 )
@@ -83,6 +87,7 @@ add_executable(${PROJECT_NAME}_tests
 
 target_link_libraries(${PROJECT_NAME}_tests
   PRIVATE
+    ${CMAKE_THREAD_LIBS_INIT}
     wiringpi
     spdlog
     gtest

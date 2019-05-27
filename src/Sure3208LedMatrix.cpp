@@ -143,10 +143,12 @@ void Sure3208LedMatrix::SendCommand(int channel, unsigned char cmd) {
 }
 
 void Sure3208LedMatrix::InitChannel(int channel) {
+  spdlog::info("Wiring Pi SPI setup for channel {}", channel);
   if (wiringPiSPISetup(channel, (256 * 1024)) < 0) {
     spdlog::error("SPI channel {} setup failed with error {} ", channel,
                   strerror(errno));
   }
+  spdlog::info("Wiring Pi SPI setup for channel {} done", channel);
   SendCommand(channel, COMMAND_SYS_DYS);
   SendCommand(channel, COMMAND_N_MOS_COM8);
   SendCommand(channel, COMMAND_RC_MASTER_MODE);

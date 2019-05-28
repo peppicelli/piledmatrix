@@ -33,4 +33,5 @@ This project uses:
 - [wiringPi](http://wiringpi.com/)
 - [spdlog](https://github.com/gabime/spdlog).
 - [google tests and mock](https://github.com/google/googletest)
+- [PyBind11](https://github.com/pybind/pybind11)
 All these dependencies are built automatically with the help of `ExternalProject_Add` in CMake.

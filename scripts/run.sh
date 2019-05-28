@@ -23,7 +23,6 @@ echo "Running in $(pwd) as $(whoami)"
 scp $SCRIPT_DIR/../build/piledmatrix*.tar.gz pi@$1:/home/pi
 ssh pi@$1 << EOF
   cd /home/pi
+  rm -rf piledmatrix-0.1.1-Linux/
   tar xvf piledmatrix*.tar.gz
-  cd piled*/bin
-  sudo ./piledmatrix
 EOF

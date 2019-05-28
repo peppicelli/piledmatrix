@@ -21,6 +21,9 @@
 
 namespace ledmatrix {
 
+/**
+ * Factory for MonoColor8RowsGraphics class
+ */
 class MonoColor8RowsGraphicsFactory : public GraphicsFactory {
  public:
   MonoColor8RowsGraphicsFactory();

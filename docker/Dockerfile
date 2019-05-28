@@ -40,3 +40,9 @@ RUN mkdir -p /opt/raspberry/rootfs
 ADD rootfs/lib/ /opt/raspberry/rootfs/lib
 ADD rootfs/usr/ /opt/raspberry/rootfs/usr
 ADD pi.cmake /opt/raspberry/
+
+# Install the raspberry python lib and header
+RUN mkdir -p /opt/raspberry/rootfs/usr/include/python3.5m/arm-linux-gnueabihf/python3.5m/
+ADD python3.5/*.h /opt/raspberry/rootfs/usr/include/python3.5m/
+ADD python3.5/arm-linux-gnueabihf/python3.5m/*.h /opt/raspberry/rootfs/usr/include/python3.5m/arm-linux-gnueabihf/python3.5m/
+ADD python3.5/libpython3.5m.so /opt/raspberry/usr/lib/arm-linux-gnueabihf/

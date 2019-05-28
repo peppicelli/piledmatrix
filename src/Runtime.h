@@ -24,6 +24,9 @@
 
 namespace ledmatrix {
 
+/**
+ * Class managing the threads used to display and animate the screen.
+ */
 class Runtime {
  public:
   /**
@@ -66,6 +69,12 @@ class Runtime {
    * Stop the Runtime. Wait for the two thread to finish properly.
    */
   void Stop();
+
+  /**
+   * @return true if the runtime is started.
+   * @return false otherwise.
+   */
+  bool IsStarted() {return m_bRun;}
 
  private:
   std::vector<std::unique_ptr<IGraphicsProvider>> m_graphicsProviders;

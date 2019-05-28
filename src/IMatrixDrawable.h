@@ -1,5 +1,5 @@
 /**
- * @file IMatrixDrawable.cpp
+ * @file IMatrixDrawable.h
  * @author Daniel Peppicelli (daniel.peppicelli@gmail.com)
  * @brief Interface for any object that could be draw on an IGraphic object.
  * @version 0.1

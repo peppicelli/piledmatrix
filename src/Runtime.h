@@ -76,6 +76,16 @@ class Runtime {
    */
   bool IsStarted() {return m_bRun;}
 
+  /**
+   * Cycle time for the display task
+   */
+  static const unsigned int DISPLAY_CYCLE_TIME_MILLI;
+
+  /**
+   * Cycle time for the compute task
+   */
+  static const unsigned int COMPUTE_CYCLE_TIME_MILLI;
+
  private:
   std::vector<std::unique_ptr<IGraphicsProvider>> m_graphicsProviders;
 
@@ -91,9 +101,6 @@ class Runtime {
 
   void DisplayTask();
   void ComputeTask();
-
-  static const unsigned int DISPLAY_CYCLE_TIME_MILLI;
-  static const unsigned int COMPUTE_CYCLE_TIME_MILLI;
 };
 
 }  // namespace ledmatrix

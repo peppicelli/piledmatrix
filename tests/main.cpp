@@ -19,7 +19,7 @@
 
 int main(int argc, char **argv) {
   // Change the following line to debug.
-  spdlog::set_level(spdlog::level::off);
+  spdlog::set_level(spdlog::level::debug);
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

@@ -14,7 +14,7 @@
 #pragma once
 
 #include <gmock/gmock.h>
-#include <src/IGraphics.h>
+#include "src/IGraphics.h"
 
 namespace ledmatrix {
 

@@ -31,9 +31,7 @@ const unsigned int Runtime::DISPLAY_CYCLE_TIME_MILLI = 15;
 const unsigned int Runtime::COMPUTE_CYCLE_TIME_MILLI = 1000;
 
 Runtime::Runtime()
-    : m_bRun(false),
-      m_hardware(true),
-      m_pCurrentGraphicsProvider(NULL) {
+    : m_bRun(false), m_hardware(true), m_pCurrentGraphicsProvider(NULL) {
   m_hardware.SetBrightness(15);
 }
 
@@ -51,35 +49,43 @@ void Runtime::AddGraphicsProvider(
 }
 
 void Runtime::Start() {
-  m_bRun = true;
-  m_computeThread = std::move(std::thread(&Runtime::ComputeTask, this));
-  pthread_setname_np(m_computeThread.native_handle(), "Runtime_compute");
-  m_displayThread = std::move(std::thread(&Runtime::DisplayTask, this));
-  pthread_setname_np(m_displayThread.native_handle(), "Runtime_display");
+  if (false == m_bRun) {
+    m_bRun = true;
+    m_computeThread = std::move(std::thread(&Runtime::ComputeTask, this));
+    pthread_setname_np(m_computeThread.native_handle(), "Runtime_compute");
+    m_displayThread = std::move(std::thread(&Runtime::DisplayTask, this));
+    pthread_setname_np(m_displayThread.native_handle(), "Runtime_display");
 
-  // Set the display thread as "real time". In case you are wondering how to
-  // check that, you can use this command: ps -Leo
-  // pid,tid,class,rtprio,stat,comm,wchan
-  sched_param sch;
-  int policy;
-  pthread_getschedparam(m_displayThread.native_handle(), &policy, &sch);
-  sch.sched_priority = 20;
-  if (pthread_setschedparam(m_displayThread.native_handle(), SCHED_FIFO,
-                            &sch)) {
-    spdlog::error("Failed to setschedparam: {}", std::strerror(errno));
+    // Set the display thread as "real time". In case you are wondering how to
+    // check that, you can use this command: ps -Leo
+    // pid,tid,class,rtprio,stat,comm,wchan
+    sched_param sch;
+    int policy;
+    pthread_getschedparam(m_displayThread.native_handle(), &policy, &sch);
+    sch.sched_priority = 20;
+    if (pthread_setschedparam(m_displayThread.native_handle(), SCHED_FIFO,
+                              &sch)) {
+      spdlog::error("Failed to setschedparam: {}", std::strerror(errno));
+    }
+  } else {
+    spdlog::warn("Trying to start an already started runtime.");
   }
 }
 
 void Runtime::Stop() {
-  m_bRun = false;
-  if (m_computeThread.joinable()) {
-    m_computeThread.join();
+  if (true == m_bRun) {
+    m_bRun = false;
+    if (m_computeThread.joinable()) {
+      m_computeThread.join();
+    }
+    spdlog::info("Computing thread finished.");
+    if (m_displayThread.joinable()) {
+      m_displayThread.join();
+    }
+    spdlog::info("Display thread finished.");
+  } else {
+    spdlog::warn("Trying to stop an already stopped runtime.");
   }
-  spdlog::info("Computing thread finished.");
-  if (m_displayThread.joinable()) {
-    m_displayThread.join();
-  }
-  spdlog::info("Display thread finished.");
 }
 
 void Runtime::DisplayTask() {
@@ -125,6 +131,8 @@ void Runtime::ComputeTask() {
                     });
     }
 
+    spdlog::debug("ComputeTask, number of active providers: {}",
+                  numberOfActiveProviders);
     bool bReSchedule = false;
 
     // Reset the current provider if this one has finish.
@@ -139,16 +147,25 @@ void Runtime::ComputeTask() {
     }
 
     // We need to choose another provider
-    if (bReSchedule) {
-      IGraphicsProviderPriorityCompare comparator;
-      std::sort(m_graphicsProviders.begin(), m_graphicsProviders.end(),
-                comparator);
+    if (bReSchedule && !m_graphicsProviders.empty()) {
+      // Do we have more than one provider in the list ?
+      if (m_graphicsProviders.size() > 1) {
+        spdlog::debug("More than one provider, sorting the array.");
+        IGraphicsProviderPriorityCompare comparator;
+        std::sort(m_graphicsProviders.begin(), m_graphicsProviders.end(),
+                  comparator);
+      }
+
       {
         std::lock_guard<std::mutex> guard(m_currentGraphicsProviderMutex);
         m_pCurrentGraphicsProvider = m_graphicsProviders[0].get();
       }
     }
 
+    if (m_pCurrentGraphicsProvider) {
+      spdlog::debug("ComputeTask, chosen provider: {}",
+                    m_pCurrentGraphicsProvider->GetName());
+    }
     ++cycleNumber;
 
     std::chrono::milliseconds duration(COMPUTE_CYCLE_TIME_MILLI);

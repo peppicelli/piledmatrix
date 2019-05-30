@@ -72,6 +72,7 @@ include(GoogleTest)
 set(tests_SRCS
     tests/Font8x5Tests.cpp
     tests/GraphicsToolBoxTests.cpp
+    tests/HorizontalGraphicsAnimationTests.cpp
     tests/MonoColor8RowsGraphicsFactoryTests.cpp
     tests/MonoColor8RowsGraphicsTests.cpp
     tests/RuntimeTests.cpp)

@@ -81,6 +81,7 @@ void SimpleMessageGraphicsProvider::ExecuteDisplayCycle(
           m_currentMessage.clear();
           m_pGraphics->Clear();
         } else {
+          spdlog::debug("Animation step for message {}.", m_currentMessage);
           m_pAnimation->PerformStep();
         }
       }

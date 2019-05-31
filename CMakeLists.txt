@@ -76,7 +76,8 @@ set(tests_SRCS
     tests/MonoColor8RowsGraphicsFactoryTests.cpp
     tests/MonoColor8RowsGraphicsTests.cpp
     tests/RuntimeTests.cpp
-    tests/SimpleMessageGraphicsProviderTests.cpp)
+    tests/SimpleMessageGraphicsProviderTests.cpp
+    tests/TimeGraphicsProviderTests.cpp)
 
 add_executable(${PROJECT_NAME}_tests ${app_SRCS} ${tests_SRCS} tests/main.cpp)
 

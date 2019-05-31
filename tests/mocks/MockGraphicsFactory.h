@@ -14,9 +14,10 @@
  */
 #pragma once
 
+#include <gmock/gmock.h>
+
 #include <memory>
 
-#include <gmock/gmock.h>
 #include "src/GraphicsFactory.h"
 
 namespace ledmatrix {

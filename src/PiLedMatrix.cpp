@@ -60,6 +60,10 @@ void PiLedMatrix::Stop() const {
   }
 }
 
+bool PiLedMatrix::IsStarted() const {
+  return pRuntime->IsStarted();
+}
+
 void PiLedMatrix::AddMessage(const std::string& message) const {
   if (m_pMessageProvider) {
     m_pMessageProvider->DisplayMessage(message);

@@ -62,6 +62,13 @@ class PiLedMatrix {
    */
   void AddMessage(const std::string& message) const;
 
+  /**
+   * Indicates the state of the runtime
+   * @return true if the runtime is started.
+   * @return false otherwise.
+   */
+  bool IsStarted() const;
+
  private:
   ledmatrix::Sure3208LedMatrix hardware;
   std::unique_ptr<ledmatrix::Runtime> pRuntime;

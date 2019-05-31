@@ -25,6 +25,7 @@ namespace py = pybind11;
 PYBIND11_MODULE(piledmatrix, m) {
   py::class_<ledmatrix::PiLedMatrix> piLedMatrix(m, "PiLedMatrix");
   piLedMatrix.def(py::init<>())
+             .def("IsStarted", &ledmatrix::PiLedMatrix::IsStarted)
              .def("Start", &ledmatrix::PiLedMatrix::Start)
              .def("Stop", &ledmatrix::PiLedMatrix::Stop)
              .def("AddMessage", &ledmatrix::PiLedMatrix::AddMessage);

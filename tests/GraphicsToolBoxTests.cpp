@@ -151,3 +151,4 @@ TEST(GraphicsToolBox, WriteOnScreenWithAlignment) {
   ledmatrix::graphics_toolbox::WriteOnScreen(graphics, font, "a",
                                              ledmatrix::AlignRight);
 }
+

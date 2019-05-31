@@ -75,6 +75,7 @@ set(tests_SRCS
     tests/HorizontalGraphicsAnimationTests.cpp
     tests/MonoColor8RowsGraphicsFactoryTests.cpp
     tests/MonoColor8RowsGraphicsTests.cpp
+    tests/PiLedMatrixTests.cpp
     tests/RuntimeTests.cpp
     tests/SimpleMessageGraphicsProviderTests.cpp
     tests/TimeGraphicsProviderTests.cpp)

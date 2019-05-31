@@ -80,3 +80,10 @@ TEST(Font8x5, GetCharacterWidth) {
   EXPECT_EQ(font.GetSingleCharacterWidth(':'), 2);
   EXPECT_EQ(font.GetSingleCharacterMaxWidth(), 5);
 }
+
+TEST(Font8x5, DeallocatingDestructor)
+{
+    auto pFont = new ledmatrix::Font8x5();
+    EXPECT_EQ(pFont->GetCharacterPixel('a', 0, 0), false);
+    delete pFont;
+}

@@ -44,14 +44,12 @@ TEST(HorizontalGraphicsAnimation, StepLeft) {
   ASSERT_TRUE(animation.IsAnimationDone());
 }
 
-
 TEST(HorizontalGraphicsAnimation, StepRight) {
   testing::NiceMock<ledmatrix::MockIGraphics> graphics;
   const uint32_t width = 20;
   const uint32_t screenSize = 5;
   ON_CALL(graphics, GetWidth()).WillByDefault(testing::Return(width));
-  EXPECT_CALL(graphics, Shift(ledmatrix::Direction::Left, width))
-      .Times(1);
+  EXPECT_CALL(graphics, Shift(ledmatrix::Direction::Left, width)).Times(1);
   EXPECT_CALL(graphics, Shift(ledmatrix::Direction::Right, 1))
       .Times(width + screenSize);
 
@@ -68,4 +66,12 @@ TEST(HorizontalGraphicsAnimation, StepRight) {
   animation.PerformStep();
   animation.PerformStep();
   ASSERT_TRUE(animation.IsAnimationDone());
+}
+
+TEST(HorizontalGraphicsAnimation, DeallocatingDestructor) {
+  testing::NiceMock<ledmatrix::MockIGraphics> graphics;
+  auto pAnimation = new ledmatrix::HorizontalGraphicsAnimation(
+      graphics, 2, ledmatrix::Direction::Left, 1);
+  ASSERT_FALSE(pAnimation->IsAnimationDone());
+  delete pAnimation;
 }

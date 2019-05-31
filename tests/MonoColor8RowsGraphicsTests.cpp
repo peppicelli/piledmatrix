@@ -133,6 +133,16 @@ TEST(MonoColor8RowsGraphics, Rotate) {
   EXPECT_EQ(graphics.GetPixel(1, 1), true);
   EXPECT_EQ(graphics.GetPixel(2, 2), true);
   EXPECT_EQ(graphics.GetPixel(3, 3), true);
+
+  graphics.Rotate(ledmatrix::Up, 1);
+  EXPECT_EQ(graphics.GetPixel(0, 1), true);
+  EXPECT_EQ(graphics.GetPixel(1, 2), true);
+  EXPECT_EQ(graphics.GetPixel(2, 3), true);
+
+  graphics.Rotate(ledmatrix::Down, 1);
+  EXPECT_EQ(graphics.GetPixel(1, 1), true);
+  EXPECT_EQ(graphics.GetPixel(2, 2), true);
+  EXPECT_EQ(graphics.GetPixel(3, 3), true);
 }
 
 TEST(MonoColor8RowsGraphics, Shift) {

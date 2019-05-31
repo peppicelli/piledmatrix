@@ -44,4 +44,4 @@ docker run -u$(id -u) --rm -v$SCRIPT_DIR/..:/data dpeppicelli/raspbian-rt-cross-
 mkdir -p /data/build/coverage &&
 lcov -c --directory /data/build/CMakeFiles/piledmatrix_tests.dir/src --output-file /data/build/coverage/main_coverage.info &&
 lcov --remove /data/build/coverage/main_coverage.info '/data/build/spdlog/*' '/opt/*' -o /data/build/coverage/main_coverage.info &&
-genhtml /data/build/coverage/main_coverage.info --output-directory /data/build/coverage"
+genhtml --legend /data/build/coverage/main_coverage.info --output-directory /data/build/coverage"

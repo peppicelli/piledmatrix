@@ -17,6 +17,7 @@
 
 #include "mocks/MockIFont.h"
 #include "mocks/MockIGraphics.h"
+#include "mocks/MockIMatrixDrawable.h"
 #include "src/GraphicsToolBox.h"
 
 TEST(GraphicsToolBox, WriteOnScreenFixed) {
@@ -152,3 +153,41 @@ TEST(GraphicsToolBox, WriteOnScreenWithAlignment) {
                                              ledmatrix::AlignRight);
 }
 
+TEST(GraphicsToolBox, WriteOnScreenMatrixDrawable) {
+  testing::NiceMock<ledmatrix::MockIFont> font;
+  ledmatrix::MockIGraphics graphics;
+  testing::NiceMock<ledmatrix::MockIMatrixDrawable> matrixDrawable;
+
+  ON_CALL(matrixDrawable, GetSize())
+      .WillByDefault(testing::Return(std::make_pair(3, 4)));
+
+  // Two columns are on
+  ON_CALL(matrixDrawable, GetPixel(testing::_, testing::Le(1)))
+      .WillByDefault(testing::Return(true));
+
+  // And the two next one are off
+  ON_CALL(matrixDrawable, GetPixel(testing::_, testing::Gt(1)))
+      .WillByDefault(testing::Return(false));
+
+  ON_CALL(graphics, GetHeight()).WillByDefault(testing::Return(10));
+
+  const uint16_t startX = 2;
+  const uint16_t startY = 3;
+
+  // Verify that the pixels of character a are correctly written on screen
+  for (uint16_t currentX = startX; currentX < startX + 3; currentX++) {
+    for (uint16_t currentY = startY; currentY < startY + 2; currentY++) {
+      EXPECT_CALL(graphics, SetPixel(currentX, currentY, true));
+    }
+  }
+
+  // Verify that the pixels of character a are correctly written on screen
+  for (uint16_t currentX = startX; currentX < startX + 3; currentX++) {
+    for (uint16_t currentY = startY + 2; currentY < startY + 4; currentY++) {
+      EXPECT_CALL(graphics, SetPixel(currentX, currentY, false));
+    }
+  }
+
+  ledmatrix::graphics_toolbox::WriteOnScreen(graphics, &matrixDrawable, startX,
+                                             startY);
+}

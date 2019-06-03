@@ -34,6 +34,7 @@ ssh pi@$1 << EOF
   sudo apt -y install ./piledmatrix*.deb
   rm -rf piledmatrix*.deb
   export GCOV_PREFIX=/home/pi
+  sudo pkill -9 piledmatrix
   piledmatrix_tests
 EOF
 

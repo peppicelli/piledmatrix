@@ -26,5 +26,6 @@ ssh pi@$1 << EOF
   sudo dpkg --purge piledmatrix
   sudo apt -y install ./piledmatrix*.deb
   rm -rf piledmatrix*.deb
+  sudo pkill -9 piledmatrix
   sudo piledmatrix
 EOF

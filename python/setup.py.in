@@ -1,0 +1,27 @@
+import os
+from setuptools import setup
+
+setup(
+    name = "piledmatrix",
+    version = "@PROJECT_VERSION@",
+    author = "@CPACK_DEBIAN_PACKAGE_MAINTAINER@",
+    author_email = "@CPACK_PACKAGE_CONTACT@",
+    description = "@CPACK_PACKAGE_DESCRIPTION@",
+    license = "Apache License 2.0",
+    keywords = "sure led raspberrypi",
+    url = "http://packages.python.org/an_example_pypi_project",
+    packages=['piledmatrix'],
+    package_dir={'piledmatrix': 'piledmatrix'},
+    package_data={'piledmatrix': ['_piledmatrix.so']},
+    install_requires=[
+          'python-daemon==2.2.3',
+    ],
+    long_description="@CPACK_PACKAGE_DESCRIPTION@",
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Environment :: Other Environment",
+        "Topic :: Software Development :: Embedded Systems",
+        "License :: OSI Approved :: Apache Software License",
+    ],
+    scripts=['piledmatrix/piledmatrix']
+)

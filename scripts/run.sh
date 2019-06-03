@@ -20,9 +20,11 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ORIGINAL_DIR=$(pwd)
 echo "Running in $(pwd) as $(whoami)"
 
-scp $SCRIPT_DIR/../build/piledmatrix*.tar.gz pi@$1:/home/pi
+scp $SCRIPT_DIR/../build/piledmatrix*.deb pi@$1:/home/pi
 ssh pi@$1 << EOF
   cd /home/pi
-  rm -rf piledmatrix-0.1.1-Linux/
-  tar xvf piledmatrix*.tar.gz
+  sudo dpkg --purge piledmatrix
+  sudo apt -y install ./piledmatrix*.deb
+  rm -rf piledmatrix*.deb
+  sudo piledmatrix
 EOF

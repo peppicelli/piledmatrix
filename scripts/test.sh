@@ -25,15 +25,16 @@ rm -rf $SCRIPT_DIR/../build/coverage
 find $SCRIPT_DIR/../build/ -name "*.gcda" -type f -delete
 
 echo "Transfering build to raspberry."
-scp $SCRIPT_DIR/../build/piledmatrix*.tar.gz pi@$1:/home/pi
+scp $SCRIPT_DIR/../build/piledmatrix*.deb pi@$1:/home/pi
 
 echo "Running the test on the target."
 ssh pi@$1 << EOF
   cd /home/pi
-  tar xvf piledmatrix*.tar.gz
-  cd piled*/bin
+  sudo dpkg --purge piledmatrix
+  sudo apt -y install ./piledmatrix*.deb
+  rm -rf piledmatrix*.deb
   export GCOV_PREFIX=/home/pi
-  ./piledmatrix_tests
+  piledmatrix_tests
 EOF
 
 # Get the coverage back

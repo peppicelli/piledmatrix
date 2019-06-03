@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+
+import piledmatrix
+import time
+
+m = piledmatrix.PiLedMatrix()
+m.Start()
+m.AddMessage("hello world !")
+time.sleep(10)
+m.Stop()

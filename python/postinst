@@ -1,0 +1,7 @@
+#!/bin/sh
+# postinst script for piledmatrix
+
+set -e
+
+cd /usr/share/pyshared/piledmatrix
+sudo python3 setup.py install

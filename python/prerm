@@ -1,0 +1,6 @@
+#!/bin/sh
+# prerm script
+#
+# Removes all files installed by: ./setup.py install
+sudo rm -rf /usr/share/pyshared/piledmatrix
+sudo rm -rf /usr/local/bin/piledmatrix

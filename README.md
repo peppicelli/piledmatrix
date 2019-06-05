@@ -1,5 +1,7 @@
 # piledmatrix
 
+[![piledmatrix demo](doc/demo.gif)](https://www.youtube.com/watch?v=7lBYZDmsLBE)
+
 The goal of this project is to drive two [Sure 32x08 Green LED 5mm dot matrix](http://store3.sure-electronics.com/de-dp13211) displays using a `Raspberry Pi` v3. 
 
 But the real goal of this project, to be completely honest, is to try out some technologies and best practices when it comes to embedded development on a `Raspberry Pi`. I've always be kind of frustrated not to have a proper "hello world" project that I could use to kick start other embedded project on a `Pi` or any other board available. In this regard, this project may seems like an overkill... but it did allow me to learn and try to apply whatever best practices I could read on:
@@ -42,13 +44,13 @@ The script will only work if you have setup ssh to log in automatically (using `
 
 Coverage of the code by the tests is done automatically using gcov and lcov. The coverage report can be found in `build/coverage`.
 
-![Alt text](doc/coverage.png?raw=true "Coverage")
+![Code coverage](doc/coverage.png?raw=true "Coverage")
 
 ## Documentation
 
 `Doxygen` is enable. The documentation is generated automatically at each build and can be found in `build/html`.
 
-![Alt text](doc/doc.png?raw=true "Doxygen documentation")
+![Documentation](doc/doc.png?raw=true "Doxygen documentation")
 
 ## Dependencies management
 
@@ -74,4 +76,4 @@ Two threads are driving the system:
 
 **The high level** is responsible for more complex tasks, where a language such as `python` is more convenient. For example, it is at this level that the current weather report is fetch from the internet and made to a displayable string.
 
-![Alt text](doc/architecture_overview.svg "General architecture")
+![Architecture overview](doc/architecture_overview.svg "General architecture")

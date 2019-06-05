@@ -18,7 +18,7 @@ import json
 
 
 def display_date(matrix):
-    matrix.add_message(datetime.date.today().strftime("%d %B %Y").capitalize())
+    matrix.add_message(datetime.date.today().strftime("%-d %B %Y").capitalize())
 
 
 def display_weather(matrix):

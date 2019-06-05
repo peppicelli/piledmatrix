@@ -62,7 +62,7 @@ void Runtime::Start() {
     sched_param sch;
     int policy;
     pthread_getschedparam(m_displayThread.native_handle(), &policy, &sch);
-    sch.sched_priority = 20;
+    sch.sched_priority = 99;
     if (pthread_setschedparam(m_displayThread.native_handle(), SCHED_FIFO,
                               &sch)) {
       spdlog::error("Failed to setschedparam: {}", std::strerror(errno));

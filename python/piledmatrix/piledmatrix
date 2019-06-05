@@ -22,20 +22,23 @@ def display_date(matrix):
 
 
 def display_weather(matrix):
-    with urllib.request.urlopen("http://www.prevision-meteo.ch/services/json/pully") as url:
-        data = json.loads(url.read().decode())
-        weather = "Prévisons            "
-        for i in range(5):
-            if i > 0:
-                weather += "            "
-            day_key = "fcst_day_{}".format(i)
-            weather += data[day_key]['day_long']
-            weather += "  "
-            weather += data[day_key]['condition']
-            weather += " {}°/{}°".format(data[day_key]
-                                         ['tmin'], data[day_key]['tmax'])
-        weather += "            "
-        matrix.add_message(2*weather)
+    try:
+        with urllib.request.urlopen("http://www.prevision-meteo.ch/services/json/pully") as url:
+            data = json.loads(url.read().decode())
+            weather = "Prévisons            "
+            for i in range(5):
+                if i > 0:
+                    weather += "            "
+                day_key = "fcst_day_{}".format(i)
+                weather += data[day_key]['day_long']
+                weather += "  "
+                weather += data[day_key]['condition']
+                weather += " {}°/{}°".format(data[day_key]
+                                            ['tmin'], data[day_key]['tmax'])
+            weather += "            "
+            matrix.add_message(2*weather)
+    except:
+        pass
 
 
 if __name__ == '__main__':

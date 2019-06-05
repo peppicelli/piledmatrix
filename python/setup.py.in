@@ -14,7 +14,6 @@ setup(
     package_dir={'piledmatrix': 'piledmatrix'},
     package_data={'piledmatrix': ['_piledmatrix.so']},
     install_requires=[
-          'python-daemon==2.2.3',
           'schedule==0.6.0',
     ],
     long_description="@CPACK_PACKAGE_DESCRIPTION@",

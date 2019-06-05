@@ -1,0 +1,10 @@
+[Unit]
+Description=piledmatrix
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/local/bin/piledmatrix
+
+[Install]
+WantedBy=multi-user.target

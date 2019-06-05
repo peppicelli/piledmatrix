@@ -1,35 +1,47 @@
 #!/usr/bin/env python3
 
+import locale
+
+try:
+    locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
+except:
+    pass
+
 import time
 import signal
 import piledmatrix
 import schedule
-import daemon
 import lockfile
 import datetime
 import urllib.request
-import json 
+import json
+
 
 def display_date(matrix):
-    matrix.AddMessage(datetime.date.today().strftime("%B %d, %Y"))
+    matrix.add_message(datetime.date.today().strftime("%d %B %Y").capitalize())
+
 
 def display_weather(matrix):
     with urllib.request.urlopen("http://www.prevision-meteo.ch/services/json/pully") as url:
         data = json.loads(url.read().decode())
         weather = "Prévisons            "
         for i in range(5):
-            if i > 0: 
+            if i > 0:
                 weather += "            "
-            weather += data["fcst_day_{}".format(i)]['day_long']
-            weather += "   "
-            weather += data["fcst_day_{}".format(i)]['condition']
-        weather += "            "        
-        matrix.AddMessage(2*weather)
+            day_key = "fcst_day_{}".format(i)
+            weather += data[day_key]['day_long']
+            weather += "  "
+            weather += data[day_key]['condition']
+            weather += " {}°/{}°".format(data[day_key]
+                                         ['tmin'], data[day_key]['tmax'])
+        weather += "            "
+        matrix.add_message(2*weather)
 
-with daemon.DaemonContext():
+
+if __name__ == '__main__':
 
     m = piledmatrix.PiLedMatrix()
-    m.Start()
+    m.start()
 
     schedule.every(20).seconds.do(display_date, matrix=m)
     schedule.every(120).seconds.do(display_weather, matrix=m)

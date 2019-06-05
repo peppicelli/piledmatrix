@@ -17,6 +17,8 @@
 
 #include <utility>
 
+#include "spdlog/spdlog.h"
+
 #include "src/SimpleMessageGraphicsProvider.h"
 #include "src/TimeGraphicsProvider.h"
 
@@ -60,14 +62,17 @@ void PiLedMatrix::Stop() const {
   }
 }
 
-bool PiLedMatrix::IsStarted() const {
-  return pRuntime->IsStarted();
-}
+bool PiLedMatrix::IsStarted() const { return pRuntime->IsStarted(); }
 
 void PiLedMatrix::AddMessage(const std::string& message) const {
   if (m_pMessageProvider) {
     m_pMessageProvider->DisplayMessage(message);
   }
 }
+
+void PiLedMatrix::SetLoglevel(const spdlog::level::level_enum& level) const {
+  spdlog::set_level(level);
+}
+
 
 }  // namespace ledmatrix

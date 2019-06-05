@@ -14,12 +14,14 @@
  */
 #pragma once
 
-#include <string>
 #include <memory>
+#include <string>
+
+#include "spdlog/spdlog.h"
 
 #include "src/Runtime.h"
-#include "src/Sure3208LedMatrix.h"
 #include "src/SimpleMessageGraphicsProvider.h"
+#include "src/Sure3208LedMatrix.h"
 
 namespace ledmatrix {
 
@@ -61,6 +63,12 @@ class PiLedMatrix {
    * @param message The message to display.
    */
   void AddMessage(const std::string& message) const;
+
+  /**
+   * Set the log level.
+   * @param logfilePath Path to the logfile.
+   */
+  void SetLoglevel(const spdlog::level::level_enum& level) const;
 
   /**
    * Indicates the state of the runtime

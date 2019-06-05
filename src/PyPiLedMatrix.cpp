@@ -24,9 +24,20 @@ namespace py = pybind11;
  */
 PYBIND11_MODULE(_piledmatrix, m) {
   py::class_<ledmatrix::PiLedMatrix> piLedMatrix(m, "PiLedMatrix");
+
+  py::enum_<spdlog::level::level_enum>(m, "LogLevel", py::arithmetic())
+      .value("trace", spdlog::level::trace)
+      .value("debug", spdlog::level::debug)
+      .value("info", spdlog::level::info)
+      .value("warn", spdlog::level::warn)
+      .value("err", spdlog::level::err)
+      .value("critical", spdlog::level::critical)
+      .value("off", spdlog::level::off);
+
   piLedMatrix.def(py::init<>())
-             .def("IsStarted", &ledmatrix::PiLedMatrix::IsStarted)
-             .def("Start", &ledmatrix::PiLedMatrix::Start)
-             .def("Stop", &ledmatrix::PiLedMatrix::Stop)
-             .def("AddMessage", &ledmatrix::PiLedMatrix::AddMessage);
+      .def("is_started", &ledmatrix::PiLedMatrix::IsStarted)
+      .def("start", &ledmatrix::PiLedMatrix::Start)
+      .def("stop", &ledmatrix::PiLedMatrix::Stop)
+      .def("add_message", &ledmatrix::PiLedMatrix::AddMessage)
+      .def("set_loglevel", &ledmatrix::PiLedMatrix::SetLoglevel);
 }

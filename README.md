@@ -74,4 +74,4 @@ Two threads are driving the system:
 
 **The high level** is responsible for more complex tasks, where a language such as `python` is more convenient. For example, it is at this level that the current weather report is fetch from the internet and made to a displayable string.
 
-![Alt text](doc/architecture_overview.svg?raw=true "General architecture")
+![Alt text](doc/architecture_overview.svg "General architecture")
